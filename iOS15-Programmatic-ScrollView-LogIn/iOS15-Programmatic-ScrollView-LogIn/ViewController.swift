@@ -29,10 +29,18 @@ class ViewController: UIViewController {
         return contentView
     }()
     
+    lazy var imageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "kalen-emsley-mountain"))
+        imageView.frame = CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: imageHeight))
+        imageView.alpha = 0.5
+        return imageView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addScrollView()
+        addImageView()
     }
     
     private func addScrollView() {
@@ -56,6 +64,10 @@ class ViewController: UIViewController {
 
             
         ])
+    }
+    
+    private func addImageView() {
+        view.addSubview(imageView)
     }
 }
 
