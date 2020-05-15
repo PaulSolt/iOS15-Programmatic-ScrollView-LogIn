@@ -21,6 +21,7 @@ class ViewController: UIViewController {
 //        scrollView.backgroundColor = .cyan
         scrollView.alwaysBounceVertical = true
         scrollView.keyboardDismissMode = .interactive
+        scrollView.delaysContentTouches = false
         scrollView.contentInset = UIEdgeInsets(top: imageHeight, left: 0, bottom: 0, right: 0)
         return scrollView
     }()
