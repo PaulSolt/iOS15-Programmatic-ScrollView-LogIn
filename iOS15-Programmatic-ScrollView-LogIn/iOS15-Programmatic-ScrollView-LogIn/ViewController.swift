@@ -13,7 +13,8 @@ class ViewController: UIViewController {
     let imageHeight: CGFloat = 300
     let buttonHeight: CGFloat = 60
     let textFieldHeight: CGFloat = 40
-    
+    let stackViewPadding: CGFloat = 20
+
     // Lazy properties (future extract to custom classes to reuse among screens)
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView(frame: .zero)
@@ -24,6 +25,7 @@ class ViewController: UIViewController {
         scrollView.delaysContentTouches = false
         scrollView.contentInset = UIEdgeInsets(top: imageHeight, left: 0, bottom: 0, right: 0)
         scrollView.delegate = self
+        scrollView.contentInsetAdjustmentBehavior = .never // don't shift down by safe area
         return scrollView
     }()
     
@@ -36,8 +38,9 @@ class ViewController: UIViewController {
     
     lazy var imageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "kalen-emsley-mountain"))
-        imageView.frame = CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: imageHeight))
+        imageView.frame = CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 300))
         imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -51,12 +54,12 @@ class ViewController: UIViewController {
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.spacing = 16
-        // TODO: create padding variable
+        // Add padding around elements inside the stack view
         stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.directionalLayoutMargins = .init(top: 0, leading: 20, bottom: 20, trailing: 20)
+        stackView.directionalLayoutMargins = .init(top: stackViewPadding, leading: stackViewPadding, bottom: stackViewPadding, trailing: stackViewPadding)
         return stackView
     }()
-
+    
     lazy var nameTextField: PaddedTextField = {
         let textField = PaddedTextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -110,12 +113,11 @@ class ViewController: UIViewController {
         view.addConstraints([
             // superview (Storyboard) = view
             
-            // Safe area = under the time
             // Scroll View Constraints
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             // Content View Constraints (Prevents content from being squished to intrinsic content size)
             contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
@@ -171,6 +173,7 @@ extension ViewController: UITextFieldDelegate {
 extension ViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let height = -scrollView.contentOffset.y
+        print("height: \(height)")
         if height > imageHeight {
             // stretch it longer using contentFill
             imageView.frame.size.height = height
