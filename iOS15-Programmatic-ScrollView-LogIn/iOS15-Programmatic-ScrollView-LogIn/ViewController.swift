@@ -40,6 +40,7 @@ class ViewController: UIViewController {
     lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             nameTextField,
+            passwordTextField,
         ])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -49,10 +50,18 @@ class ViewController: UIViewController {
         return stackView
     }()
 
-    lazy var nameTextField: UITextField = {
-        let textField = UITextField()
+    lazy var nameTextField: PaddedTextField = {
+        let textField = PaddedTextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Name"
+        return textField
+    }()
+
+    lazy var passwordTextField: PaddedTextField = {
+        let textField = PaddedTextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Password"
+        textField.isSecureTextEntry = true
         return textField
     }()
     
@@ -85,10 +94,10 @@ class ViewController: UIViewController {
     //            contentView.heightAnchor.constraint(equalTo: view.heightAnchor),
 
             // Stack View for Content View
-            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
         ])
     }
