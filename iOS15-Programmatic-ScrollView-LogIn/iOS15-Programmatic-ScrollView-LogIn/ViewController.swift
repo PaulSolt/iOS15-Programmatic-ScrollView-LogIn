@@ -171,12 +171,12 @@ extension ViewController: UITextFieldDelegate {
 extension ViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let height = -scrollView.contentOffset.y
-        print("height: \(height)")
         if height > imageHeight {
+            // stretch it longer using contentFill
             imageView.frame.size.height = height
         } else {
+            // push it offscreen by changing the y coordinate
             imageView.frame.origin.y = height - imageHeight
         }
-        print("imageViewHeight: \(imageView.frame.height)")
     }
 }
