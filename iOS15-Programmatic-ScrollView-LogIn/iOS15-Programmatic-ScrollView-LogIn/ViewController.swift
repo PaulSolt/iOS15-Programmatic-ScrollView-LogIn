@@ -18,7 +18,9 @@ class ViewController: UIViewController {
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView(frame: .zero)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.backgroundColor = .cyan
+//        scrollView.backgroundColor = .cyan
+        scrollView.alwaysBounceVertical = true
+        scrollView.keyboardDismissMode = .interactive
         scrollView.contentInset = UIEdgeInsets(top: imageHeight, left: 0, bottom: 0, right: 0)
         return scrollView
     }()
@@ -26,14 +28,14 @@ class ViewController: UIViewController {
     lazy var contentView: UIView = {
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.backgroundColor = .systemPink
+//        contentView.backgroundColor = .systemPink
         return contentView
     }()
     
     lazy var imageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "kalen-emsley-mountain"))
         imageView.frame = CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: imageHeight))
-        imageView.alpha = 0.5
+//        imageView.alpha = 0.5
         return imageView
     }()
     
@@ -41,11 +43,14 @@ class ViewController: UIViewController {
         let stackView = UIStackView(arrangedSubviews: [
             nameTextField,
             passwordTextField,
+            button,
         ])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .fill
+        stackView.spacing = 8
         // TODO: create padding variable
+        stackView.isLayoutMarginsRelativeArrangement = true
         stackView.directionalLayoutMargins = .init(top: 20, leading: 20, bottom: 20, trailing: 20)
         return stackView
     }()
@@ -63,6 +68,16 @@ class ViewController: UIViewController {
         textField.placeholder = "Password"
         textField.isSecureTextEntry = true
         return textField
+    }()
+    
+    lazy var button: UIButton = {
+        let button = UIButton(type: .system)
+        button.setBackgroundImage(UIImage(named: "blue-button"), for: .normal)
+        button.setTitle("Log In", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
+        button.adjustsImageWhenHighlighted = true
+        return button
     }()
     
     override func viewDidLoad() {
@@ -99,6 +114,9 @@ class ViewController: UIViewController {
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
+            // Text Field Height
+            nameTextField.heightAnchor.constraint(equalToConstant: textFieldHeight),
+            passwordTextField.heightAnchor.constraint(equalToConstant: textFieldHeight),
         ])
     }
     
