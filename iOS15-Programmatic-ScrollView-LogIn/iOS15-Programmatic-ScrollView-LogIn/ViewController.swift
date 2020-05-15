@@ -23,6 +23,7 @@ class ViewController: UIViewController {
         scrollView.keyboardDismissMode = .interactive
         scrollView.delaysContentTouches = false
         scrollView.contentInset = UIEdgeInsets(top: imageHeight, left: 0, bottom: 0, right: 0)
+        scrollView.delegate = self
         return scrollView
     }()
     
@@ -36,7 +37,7 @@ class ViewController: UIViewController {
     lazy var imageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "kalen-emsley-mountain"))
         imageView.frame = CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: imageHeight))
-//        imageView.alpha = 0.5
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
@@ -49,7 +50,7 @@ class ViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .fill
-        stackView.spacing = 8
+        stackView.spacing = 16
         // TODO: create padding variable
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.directionalLayoutMargins = .init(top: 0, leading: 20, bottom: 20, trailing: 20)
@@ -164,5 +165,18 @@ extension ViewController: UITextFieldDelegate {
             }
             return true
         }
+    }
+}
+
+extension ViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let height = -scrollView.contentOffset.y
+        print("height: \(height)")
+        if height > imageHeight {
+            imageView.frame.size.height = height
+        } else {
+            imageView.frame.origin.y = height - imageHeight
+        }
+        print("imageViewHeight: \(imageView.frame.height)")
     }
 }
