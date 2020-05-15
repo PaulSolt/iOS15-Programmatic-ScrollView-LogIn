@@ -80,8 +80,18 @@ class ViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
         button.adjustsImageWhenHighlighted = true
+        button.addTarget(self, action: #selector(buttonPressed(button:)), for: .touchUpInside)
         return button
     }()
+    
+    @objc func buttonPressed(button: UIButton) {
+        print("Log In!")
+        dismissKeyboard()
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(false)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
