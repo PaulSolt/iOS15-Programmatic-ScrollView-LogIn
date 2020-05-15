@@ -19,6 +19,7 @@ class ViewController: UIViewController {
         let scrollView = UIScrollView(frame: .zero)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.backgroundColor = .cyan
+        scrollView.contentInset = UIEdgeInsets(top: imageHeight, left: 0, bottom: 0, right: 0)
         return scrollView
     }()
     
@@ -36,6 +37,25 @@ class ViewController: UIViewController {
         return imageView
     }()
     
+    lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            nameTextField,
+        ])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        // TODO: create padding variable
+        stackView.directionalLayoutMargins = .init(top: 20, leading: 20, bottom: 20, trailing: 20)
+        return stackView
+    }()
+
+    lazy var nameTextField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Name"
+        return textField
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,8 +65,10 @@ class ViewController: UIViewController {
     
     private func addScrollView() {
         view.addSubview(scrollView)
-        
         scrollView.addSubview(contentView)
+        
+        // Add all content to the contentView
+        contentView.addSubview(stackView)
         
         view.addConstraints([
             // superview (Storyboard) = view
@@ -60,9 +82,14 @@ class ViewController: UIViewController {
             
             // Content View Constraints (Prevents content from being squished to intrinsic content size)
             contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
-//            contentView.heightAnchor.constraint(equalTo: view.heightAnchor),
+    //            contentView.heightAnchor.constraint(equalTo: view.heightAnchor),
 
-            
+            // Stack View for Content View
+            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+
         ])
     }
     
