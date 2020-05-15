@@ -14,6 +14,7 @@
 		BDEF4E9B246EF7B9005D074F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BDEF4E9A246EF7B9005D074F /* Assets.xcassets */; };
 		BDEF4E9E246EF7B9005D074F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDEF4E9C246EF7B9005D074F /* LaunchScreen.storyboard */; };
 		BDEF4EA6246F0057005D074F /* PaddedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEF4EA5246F0057005D074F /* PaddedTextField.swift */; };
+		BDEF4EA8246F08A3005D074F /* NextKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDEF4EA7246F08A3005D074F /* NextKeyboardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		BDEF4E9D246EF7B9005D074F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BDEF4E9F246EF7B9005D074F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BDEF4EA5246F0057005D074F /* PaddedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextField.swift; sourceTree = "<group>"; };
+		BDEF4EA7246F08A3005D074F /* NextKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextKeyboardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				BDEF4E91246EF7B7005D074F /* AppDelegate.swift */,
 				BDEF4E93246EF7B7005D074F /* SceneDelegate.swift */,
 				BDEF4E95246EF7B7005D074F /* ViewController.swift */,
+				BDEF4EA7246F08A3005D074F /* NextKeyboardView.swift */,
 				BDEF4EA5246F0057005D074F /* PaddedTextField.swift */,
 				BDEF4E97246EF7B7005D074F /* Main.storyboard */,
 				BDEF4E9A246EF7B9005D074F /* Assets.xcassets */,
@@ -143,6 +146,7 @@
 			files = (
 				BDEF4E96246EF7B7005D074F /* ViewController.swift in Sources */,
 				BDEF4E92246EF7B7005D074F /* AppDelegate.swift in Sources */,
+				BDEF4EA8246F08A3005D074F /* NextKeyboardView.swift in Sources */,
 				BDEF4E94246EF7B7005D074F /* SceneDelegate.swift in Sources */,
 				BDEF4EA6246F0057005D074F /* PaddedTextField.swift in Sources */,
 			);

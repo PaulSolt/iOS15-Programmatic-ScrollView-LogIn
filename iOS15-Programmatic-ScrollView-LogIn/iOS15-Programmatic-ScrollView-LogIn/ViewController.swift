@@ -52,7 +52,7 @@ class ViewController: UIViewController {
         stackView.spacing = 8
         // TODO: create padding variable
         stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.directionalLayoutMargins = .init(top: 20, leading: 20, bottom: 20, trailing: 20)
+        stackView.directionalLayoutMargins = .init(top: 0, leading: 20, bottom: 20, trailing: 20)
         return stackView
     }()
 
@@ -60,6 +60,7 @@ class ViewController: UIViewController {
         let textField = PaddedTextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Name"
+        textField.delegate = self
         return textField
     }()
 
@@ -68,6 +69,7 @@ class ViewController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Password"
         textField.isSecureTextEntry = true
+        textField.delegate = self
         return textField
     }()
     
@@ -92,8 +94,7 @@ class ViewController: UIViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         
-        // Add all content to the contentView
-        contentView.addSubview(stackView)
+        addStackView()
         
         view.addConstraints([
             // superview (Storyboard) = view
@@ -108,13 +109,24 @@ class ViewController: UIViewController {
             // Content View Constraints (Prevents content from being squished to intrinsic content size)
             contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
     //            contentView.heightAnchor.constraint(equalTo: view.heightAnchor),
-
+        ])
+    }
+    
+    func addStackView() {
+        // Add all content to the contentView
+        contentView.addSubview(stackView)
+        
+        // Auto-advanced to password when "Return" is pressed
+        nameTextField.nextView = passwordTextField
+        passwordTextField.nextView = nil // dismiss keyboard
+        
+        view.addConstraints([
             // Stack View for Content View
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-
+            
             // Text Field Height
             nameTextField.heightAnchor.constraint(equalToConstant: textFieldHeight),
             passwordTextField.heightAnchor.constraint(equalToConstant: textFieldHeight),
@@ -124,5 +136,23 @@ class ViewController: UIViewController {
     private func addImageView() {
         view.addSubview(imageView)
     }
+    
 }
 
+extension ViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let textField = textField as? NextView,
+            let nextView = textField.nextView {
+            DispatchQueue.main.async {
+                nextView.becomeFirstResponder()
+            }
+            return true
+        } else {
+            DispatchQueue.main.async {
+                textField.resignFirstResponder()
+            }
+            return true
+        }
+    }
+}

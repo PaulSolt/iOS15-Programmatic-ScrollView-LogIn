@@ -8,7 +8,9 @@
 
 import UIKit
 
-class PaddedTextField: UITextField {
+class PaddedTextField: UITextField, NextView {
+    
+    var nextView: UIView?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
